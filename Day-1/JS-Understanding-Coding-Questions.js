@@ -39,8 +39,6 @@ setTimeout(function() {
 },0);
 console.log('three');
 console.log('three1');
-console.log('three2');
-console.log('three3');
 
 
 //Question: What does the following code print ?
@@ -63,7 +61,18 @@ var nameLessFunction = function(){
 //And this one is the question that I would like you guys to think over and code : 
 //Question: How would you make this work? Write a add function which would work for both the below cases. 
 add(2, 5); // 7
-add(2)(5); // 7
+var intermediateFun = add(2);
+intermediateFun(5); // 7
+
+function add(a, b) {
+  if (b) {
+    return a + b;
+  } else {
+    return function(x = 5) {
+      return x + a;
+    }
+  }
+}
 
 
 // Explain the below code with relation to Execution Context and Event Queue

@@ -4,15 +4,15 @@ export class Employee {
     salary: number;
     rating: number;
     bonus: number;
-    constructor(id: number, name: string, salary: number, rating: number, bonus: number) {
+    constructor(id: number, name: string, salary: number) {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        this.rating = rating;
-        this.bonus = bonus;
+        this.rating = 1;
+        this.bonus = 0;
     }
     printInfo() {
-        console.log(`${this.name} gets ${this.salary} and bonus ${this.bonus}`);
+        console.log(`${this.name} gets ${this.salary} and bonus ${this.bonus} with rating ${this.rating}`);
     }
     updateSalary(newSalary: number) {
         this.salary = newSalary;

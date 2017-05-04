@@ -10,7 +10,13 @@ var SalaryUpgrader = (function () {
             emp.updateSalary(newSalary);
         });
     };
+    SalaryUpgrader.prototype.rateEmployee = function (empList) {
+        empList.map(function (emp, i) {
+            emp.rating = (i + 1) / 2;
+        });
+    };
     SalaryUpgrader.prototype.addBonus = function (empList) {
+        this.rateEmployee(empList);
         empList.map(function (emp) {
             emp.rating >= 4 ? emp.bonus = 1000 : emp.bonus = 0;
         });

@@ -8,7 +8,7 @@ export class Organization {
     }
     createEmployees() {
         for (let i = 1; i <= 10; i++) {
-            let emp: Employee = new Employee(i, 'A' + i, i * 1000);    
+            let emp: Employee = new Employee(i, 'A' + i, i * 1000, i / 2, 0);    
             this.listOfEmployees.push(emp);       
         }
     }

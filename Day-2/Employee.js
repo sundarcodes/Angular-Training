@@ -5,7 +5,7 @@ var Employee = (function () {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        this.rating = 1;
+        this.rating = 0;
         this.bonus = 0;
     }
     Employee.prototype.printInfo = function () {

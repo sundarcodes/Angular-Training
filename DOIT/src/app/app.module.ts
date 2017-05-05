@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { Nav } from "./nav/nav.component";
+import { HomeComponent } from './home/home.component';
+import { CheckListComponent } from './check-list/check-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent,Nav
+    AppComponent,Nav, HomeComponent, CheckListComponent
   ],
   imports: [
     BrowserModule,

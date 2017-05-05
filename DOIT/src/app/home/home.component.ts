@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+projectList: string[];
+personalList: string[];
+
+  constructor() {
+        this.projectList = [];
+        this.personalList = [];
+   }
 
   ngOnInit() {
+    this.projectList = ['Qatar Airways', 'CITI'];    
+    this.personalList = ['Complete Task', 'Prepare Angular4'];
   }
 
 }

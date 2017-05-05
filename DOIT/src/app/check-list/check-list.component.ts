@@ -9,8 +9,8 @@ export class CheckListComponent implements OnInit {
 
   constructor() { }
 
-   @Input()
-    title: string;
+  @Input() title: string;
+  @Input() checkList : string[];
 
   ngOnInit() {
   }

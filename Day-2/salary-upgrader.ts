@@ -13,4 +13,7 @@ export class SalaryUpgrader {
     addBonus() {
 
     }
+    rateEmployee(){
+        
+    }
 }

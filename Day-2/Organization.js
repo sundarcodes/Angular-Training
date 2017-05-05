@@ -8,7 +8,7 @@ var Organization = (function () {
     }
     Organization.prototype.createEmployees = function () {
         for (var i = 1; i <= 10; i++) {
-            var emp = new Employee_1.Employee(i, 'A' + i, i * 1000);
+            var emp = new Employee_1.Employee(i, 'A' + i, i * 1000, Math.floor(Math.random() * 5) + 1);
             this.listOfEmployees.push(emp);
         }
     };

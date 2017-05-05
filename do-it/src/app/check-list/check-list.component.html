@@ -1,8 +1,10 @@
-<h3>To Do</h3>
+<h3>{{title}}</h3>
 
-  <div class="input-field">
-    <input placeholder="What do you want to do today ?" 
-    id="task" type="text" class="validate">
-  </div>
-    <input type="checkbox" id="test5" />
-      <label for="test5">Red</label>
+<div class="input-field">
+  <input placeholder="What do you want to do today ?" 
+  id="task" type="text" class="validate">
+</div>
+<p *ngFor="let item of checkList">
+<input type="checkbox" id="{{item}}" />
+  <label for="{{item}}">{{item}}</label>
+</p>

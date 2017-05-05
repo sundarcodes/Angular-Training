@@ -7,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  projectList: string[];
+  personalList: string[];
+
+  constructor() {
+    this.projectList = [
+      'Fix bug 3434',
+      'Analyze requirement XYZ'
+    ];
+    this.personalList = [
+      'Read daily',
+      'Drink water'
+    ]
+   }
 
   ngOnInit() {
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-check-list',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckListComponent implements OnInit {
 
+  @Input() title: string;
+  @Input() checkList: string[];
   constructor() { }
 
   ngOnInit() {
+    console.log(this.checkList);
   }
 
 }

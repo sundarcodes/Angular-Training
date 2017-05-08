@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-check-list',
@@ -10,7 +10,13 @@ export class CheckListComponent implements OnInit {
   constructor() { }
 
   @Input() title: string;
-  @Input() checkList : string[];
+  @Input() checkList: string[];
+
+  @Output() updateTask: EventEmitter<string> = new EventEmitter;
+
+  updateList (list: string){
+    this.updateTask.emit(list);
+  }
 
   ngOnInit() {
   }

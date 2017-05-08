@@ -11,13 +11,20 @@ projectList: string[];
 personalList: string[];
 
   constructor() {
-        this.projectList = [];
-        this.personalList = [];
+        this.projectList = ['Qatar Airways', 'CITI'];    
+        this.personalList = ['Complete Task', 'Prepare Angular4'];
    }
 
   ngOnInit() {
-    this.projectList = ['Qatar Airways', 'CITI'];    
-    this.personalList = ['Complete Task', 'Prepare Angular4'];
+    
+  }
+
+  projectUpdate(task: string){
+    this.projectList.push(task);
+  }
+
+  personalUpdate(task: string){
+    this.personalList.push(task);
   }
 
 }

@@ -3,9 +3,6 @@ import { Todo } from '../models/todo'
 
 @Injectable()
 export class TodoService {
-
-  projectList: Todo[] = [];
-  personalList: Todo[] = [];
   
   todoList: Todo[] = [];
   
@@ -29,11 +26,13 @@ export class TodoService {
    }
 
    updateProjectList(task){
-     this.projectList.push(task);
+     let todo = new Todo(task,'project');
+     this.todoList.push(todo);    
    }
 
    updatePersonalList(task){
-     this.personalList.push(task);
+     let todo = new Todo(task,'personal');
+     this.todoList.push(todo);
    }
 
 }

@@ -8,7 +8,7 @@ var Organization = (function () {
     }
     Organization.prototype.createEmployees = function () {
         for (var i = 1; i <= 10; i++) {
-            var emp = new Employee_1.Employee(i, 'A' + i, i * 1000);
+            var emp = new Employee_1.Employee(i, 'A' + i, i * 1000, this.generateRating());
             this.listOfEmployees.push(emp);
         }
     };
@@ -20,6 +20,9 @@ var Organization = (function () {
     };
     Organization.prototype.getEmployeeList = function () {
         return this.listOfEmployees;
+    };
+    Organization.prototype.generateRating = function () {
+        return Math.ceil(Math.random() * 10);
     };
     return Organization;
 }());

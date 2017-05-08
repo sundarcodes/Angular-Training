@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { Nav } from "./nav/nav.component";
 import { HomeComponent } from './home/home.component';
 import { CheckListComponent } from './check-list/check-list.component';
+import { TodoService } from './service/todo.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { CheckListComponent } from './check-list/check-list.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

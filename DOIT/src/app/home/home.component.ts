@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../service/todo.service';
+import { Todo } from '../models/todo';
 
 @Component({
   selector: 'app-home',
@@ -7,24 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-projectList: string[];
-personalList: string[];
+projectList: Todo[];
+personalList: Todo[];
 
-  constructor() {
-        this.projectList = ['Qatar Airways', 'CITI'];    
-        this.personalList = ['Complete Task', 'Prepare Angular4'];
+  constructor(private todoService: TodoService) {
+        
    }
 
   ngOnInit() {
-    
+    this.projectList = this.todoService.getProjectList();   
+    this.personalList = this.todoService.getPersonalList()
   }
 
   projectUpdate(task: string){
-    this.projectList.push(task);
+    this.todoService.updateProjectList(task);
   }
 
   personalUpdate(task: string){
-    this.personalList.push(task);
+    this.todoService.updatePersonalList(task);
   }
 
 }

@@ -1,0 +1,10 @@
+<h3>{{title}}</h3>
+
+<div class="input-field">
+  <input placeholder="What do you want to do today ?" 
+  id="task" type="text" class="validate" #task (keyup.enter)="addTask(task.value)">
+</div>
+<p *ngFor="let item of checkList">
+<input type="checkbox" id="{{item}}" />
+  <label for="{{item}}">{{item.title}}</label>
+</p>

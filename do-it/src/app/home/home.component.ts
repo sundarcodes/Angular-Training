@@ -24,4 +24,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  onProjectTaskAdded(taskName: string) {
+    console.log(taskName);
+    this.projectList.push(taskName);
+  }
+
+  onPersonalTaskAdded(taskName: string) {
+    console.log(taskName);
+    this.personalList.push(taskName);
+  }
+
 }

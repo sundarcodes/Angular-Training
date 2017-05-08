@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
+import { Todo } from '../models/todo';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,8 @@ import { TodoService } from '../todo.service';
 })
 export class HomeComponent implements OnInit {
 
-  projectList: string[];
-  personalList: string[];
+  projectList: Todo[];
+  personalList: Todo[];
 
   constructor(private todoService: TodoService) {
    

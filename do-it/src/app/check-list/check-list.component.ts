@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Todo } from '../models/todo';
 
 @Component({
   selector: 'app-check-list',
@@ -8,14 +9,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CheckListComponent implements OnInit {
 
   @Input() title: string;
-  @Input() checkList: string[];
+  @Input() checkList: Todo[];
 
   @Output() taskAdded: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.checkList);
+  // console.log(this.checkList);
   }
   
   addTask(taskName: string) {

@@ -23,5 +23,4 @@ var Organization = (function () {
     };
     return Organization;
 }());
-console.log("test");
 exports.Organization = Organization;

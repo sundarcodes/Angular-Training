@@ -10,7 +10,12 @@ var SalaryUpgrader = (function () {
             emp.updateSalary(newSalary);
         });
     };
-    SalaryUpgrader.prototype.addBonus = function () {
+    SalaryUpgrader.prototype.addBonus = function (bonusPer, empList) {
+        empList.map(function (emp) {
+            var currSalary = emp.getSalary();
+            var newSalary = currSalary > 5000 ? (bonusPer * currSalary) / 100 + currSalary : currSalary;
+            emp.updateSalary(newSalary);
+        });
     };
     return SalaryUpgrader;
 }());

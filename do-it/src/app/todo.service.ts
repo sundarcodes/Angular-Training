@@ -6,13 +6,13 @@ import { Todo } from './models/todo';
 export class TodoService {
 
   todoList: Todo[] = [];
-
+  baseURL: string = 'https://doit-5db57.firebaseio.com/todo.json';
   constructor(private http: Http) {
 
    }
 
    fetchAllTodos(){
-    return this.http.get('https://doit-5db57.firebaseio.com/todo.json')
+    return this.http.get(this.baseURL)
     .subscribe(data => {
       let resp = data.json();
       let keysArr = Object.keys(resp);
@@ -34,14 +34,23 @@ export class TodoService {
    }
 
    addTaskToProjects(taskName: string) {
-     let newTodo = new Todo(taskName, 'project');
-     this.todoList.push(newTodo);
+     this.postTask(new Todo(taskName, 'project'));
    }
 
    addTaskToPersonal(taskName: string) {
-     let newTodo = new Todo(taskName, 'personal');
-     this.todoList.push(newTodo);
+     this.postTask(new Todo(taskName, 'personal'));
    }
+
+   postTask(todo: Todo) {
+    this.http.post(this.baseURL, todo)
+        .subscribe(data => {
+          console.log(data);
+          this.todoList.push(todo);
+        }, err => {
+          console.log(err);
+        })
+   }
+
 
 
 }

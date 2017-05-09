@@ -38,11 +38,13 @@ export class TodoService {
    }
 
    addTaskToProjects(taskName: string) {
-     this.projectList.push(taskName);
+     //this.projectList.push(taskName);
+     this.todoList.push(new Todo(taskName, 'project'));
    }
 
    addTaskToPersonal(taskName: string) {
-     this.personalList.push(taskName);
+     //this.personalList.push(taskName);
+     this.todoList.push(new Todo(taskName, 'personal'));
    }
 
 

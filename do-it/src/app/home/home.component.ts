@@ -9,16 +9,16 @@ import { Todo } from '../models/todo';
 })
 export class HomeComponent implements OnInit {
 
-  projectList: Todo[];
-  personalList: Todo[];
+  //projectList: Todo[];
+  //personalList: Todo[];
 
   constructor(private todoService: TodoService) {
    
    }
 
   ngOnInit() {
-    this.projectList = this.todoService.getProjectList();
-    this.personalList = this.todoService.getPersonalList();
+    //this.projectList = this.todoService.getProjectList();
+    //this.personalList = this.todoService.getPersonalList();
   }
 
   onProjectTaskAdded(taskName: string) {
@@ -29,6 +29,12 @@ export class HomeComponent implements OnInit {
   onPersonalTaskAdded(taskName: string) {
     console.log(taskName);
     this.todoService.addTaskToPersonal(taskName);
+  }
+  get projectList():Todo[]{
+    return this.todoService.getProjectList();
+  }
+  get personalList():Todo[]{
+    return (this.todoService.getPersonalList());
   }
 
 }

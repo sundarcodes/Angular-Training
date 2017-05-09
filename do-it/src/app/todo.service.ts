@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Todo } from './models/todo';
 
 @Injectable()
@@ -6,16 +7,22 @@ export class TodoService {
 
   todoList: Todo[] = [];
 
-  constructor() {
+  constructor(private http: Http) {
 
-    let todo1 = new Todo('Fix bug 3434', 'project');
-    this.todoList.push(todo1);
-    let todo2 = new Todo('Analyze requirement XYZ', 'project');
-    this.todoList.push(todo2);
-    let todo3 = new Todo('Read daily', 'personal');
-    this.todoList.push(todo3);
-    let todo4 = new Todo('Drink water', 'personal');
-    this.todoList.push(todo4);
+   }
+
+   fetchAllTodos(){
+    return this.http.get('https://doit-5db57.firebaseio.com/todo.json')
+    .subscribe(data => {
+      let resp = data.json();
+      let keysArr = Object.keys(resp);
+      for(let i = 0;i < keysArr.length; i++) {
+        let key = keysArr[i];
+        let todoRspObj = resp[key];
+        let todoModel = new Todo(todoRspObj.title, todoRspObj.category);
+        this.todoList.push(todoModel);
+      }
+    });
    }
 
    getProjectList() {

@@ -10,7 +10,13 @@ export class SalaryUpgrader {
             emp.updateSalary(newSalary);
         })        
     }
-    addBonus() {
+    addBonus(percentRaise: number, empList: Employee[]) {
+    empList.map(emp => {
+    let orginalSalary = emp.getSalary();
+    let hikeSalary = (orginalSalary*percentRaise/100) + orginalSalary;
+    let newBonusSal = hikeSalary>10000 ? hikeSalary+1000 : hikeSalary+500;
+    emp.updateSalary(newBonusSal);
+    })
 
     }
 }

@@ -9,25 +9,18 @@ import { Todo } from '../models/todo';
 })
 export class HomeComponent implements OnInit {
 
-  projectList: Todo[];
-  personalList: Todo[];
-
   constructor(private todoService: TodoService) {
    
    }
 
   ngOnInit() {
-    this.projectList = this.todoService.getProjectList();
-    this.personalList = this.todoService.getPersonalList();
   }
 
   onProjectTaskAdded(taskName: string) {
-    console.log(taskName);
      this.todoService.addTaskToProjects(taskName);
   }
 
   onPersonalTaskAdded(taskName: string) {
-    console.log(taskName);
     this.todoService.addTaskToPersonal(taskName);
   }
 

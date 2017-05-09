@@ -2,7 +2,7 @@
 
 <div class="input-field">
   <input placeholder="What do you want to do today ?" 
-  id="task" type="text" class="validate" #task (keyup.enter)="addTask(task.value)">
+  id="task" type="text" class="validate" #task (keyup.enter)="addTask(task.value);task.value=''">
 </div>
 <p *ngFor="let item of checkList">
 <input type="checkbox" id="{{item}}" />

@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo'
+import { Todo } from '../models/todo';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class TodoService {
   
   todoList: Todo[] = [];
   
-  constructor() {
-      let todo1 = new Todo('Qatar analysis','project');
-      this.todoList.push(todo1);
-      let todo2 = new Todo('Angular learning','project');
-      this.todoList.push(todo2);
-      let todo3 = new Todo('Start at 8:00 AM','personal');
-      this.todoList.push(todo3);
-      let todo4= new Todo('Leave by 6:00 PM','personal');
-      this.todoList.push(todo4);
+  constructor(private http: Http) {
+
+   }
+
+   fetchTodoData(){
+     return this.http.get('https://doit-32d5b.firebaseio.com/todo.json')
+     .subscribe(data => {
+       let response = data.json();
+       let keys = Object.keys(response);
+       for(let i=0; i<keys.length; i++){
+          this.todoList.push(response[keys[i]]);
+       }
+     })
    }
 
    getProjectList(){
      return this.todoList.filter(todo => todo.category === 'project');
    }
+
 
    getPersonalList(){
      return this.todoList.filter(todo => todo.category === 'personal');
@@ -27,12 +33,19 @@ export class TodoService {
 
    updateProjectList(task){
      let todo = new Todo(task,'project');
-     this.todoList.push(todo);    
+     this.postTaskList(todo);
    }
 
    updatePersonalList(task){
      let todo = new Todo(task,'personal');
-     this.todoList.push(todo);
+     this.postTaskList(todo);
    }
 
+   postTaskList(todo : Todo){
+     this.http.post('https://doit-32d5b.firebaseio.com/todo.json',todo)
+     .subscribe(data => {
+       console.log(data.json());
+       this.todoList.push(todo);    
+     })
+   }
 }

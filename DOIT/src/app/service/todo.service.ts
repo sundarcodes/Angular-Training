@@ -19,8 +19,9 @@ export class TodoService {
        let keys = Object.keys(response);
        for(let i=0; i<keys.length; i++){
           let todoObj = response[keys[i]];
+          todoObj.id = keys[i];
           let todoModel = new Todo(todoObj.title,todoObj.category,keys[i],todoObj.startDate,todoObj.isDone,todoObj.endDate);
-          this.todoList.push(todoModel);
+          this.todoList.push(todoObj);
           console.log(this.todoList);
        }
      })
@@ -68,4 +69,19 @@ export class TodoService {
        console.log(data);
      })
    }
+
+   renew(todo: Todo){
+     todo.isDone = false;
+     todo.endDate = Date.now();
+     this.http.put(`${this.baseUrl}/${todo.id}.json`,todo)
+     .subscribe(data => {
+       console.log(data);
+     })
+   }
+
+   trash(todo: Todo){
+    this.http.delete(`${this.baseUrl}/${todo.id}.json`,todo)
+    .subscribe(data => {
+    })
+  }
 }

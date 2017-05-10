@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from '../models/todo';
 
 @Component({
@@ -10,9 +10,20 @@ export class ArchiveCardComponent implements OnInit {
 
   @Input() todo: Todo;
 
+  @Output() renewTask: EventEmitter<Todo> = new EventEmitter;
+  @Output() trashTask: EventEmitter<Todo> = new EventEmitter;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  renew(todo: Todo){
+    this.renewTask.emit(todo);
+  }
+
+  trash(todo: Todo){
+    this.trashTask.emit(todo);
   }
 
 }

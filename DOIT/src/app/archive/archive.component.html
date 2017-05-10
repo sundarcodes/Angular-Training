@@ -6,7 +6,7 @@
 <div class="row">
   <div *ngFor="let archive of todoService.getArchiveList()">
     <div class="col s6">
-      <app-archive-card [todo]="archive"></app-archive-card>
+      <app-archive-card [todo]="archive" (renewTask)="taskRenew($event)" (trashTask)="trashTask($event)"></app-archive-card>
     </div>
   </div>
 </div>

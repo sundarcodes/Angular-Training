@@ -1,10 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col s6">
-      <app-check-list title="Project To-do's" [checkList]="todoService.getProjectList()" (updateTask)="projectUpdate($event)"></app-check-list>
-    </div>
-    <div class="col s6">
-    <app-check-list title="Personal To-do's" [checkList]="todoService.getPersonalList()" (updateTask)="personalUpdate($event)"></app-check-list>
+<div class="row">
+  <div class="col s6">
+    <app-check-list title="Project To-do's" [checkList]="todoService.getProjectList()" (updateTask)="projectUpdate($event)"></app-check-list>
   </div>
+  <div class="col s6">
+    <app-check-list title="Personal To-do's" [checkList]="todoService.getPersonalList()" (updateTask)="personalUpdate($event)"></app-check-list>
   </div>
 </div>

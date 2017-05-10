@@ -6,29 +6,39 @@ import { Http } from '@angular/http';
 export class TodoService {
   
   todoList: Todo[] = [];
+  baseUrl: string = 'https://doit-32d5b.firebaseio.com/todo';
   
   constructor(private http: Http) {
-
+    this.fetchTodoData();
    }
 
    fetchTodoData(){
-     return this.http.get('https://doit-32d5b.firebaseio.com/todo.json')
+     return this.http.get(`${this.baseUrl}.json`)
      .subscribe(data => {
        let response = data.json();
        let keys = Object.keys(response);
        for(let i=0; i<keys.length; i++){
-          this.todoList.push(response[keys[i]]);
+          let todoObj = response[keys[i]];
+          let todoModel = new Todo(todoObj.title,todoObj.category,keys[i]);
+          this.todoList.push(todoModel);
        }
      })
    }
 
    getProjectList(){
-     return this.todoList.filter(todo => todo.category === 'project');
+     return this.todoList
+     .filter(todo => todo.category === 'project' && !todo.isDone);
    }
 
 
    getPersonalList(){
-     return this.todoList.filter(todo => todo.category === 'personal');
+     return this.todoList
+     .filter(todo => todo.category === 'personal' && !todo.isDone);
+   }
+
+   getArchiveList(){
+     return this.todoList
+     .filter(todo => todo.isDone);
    }
 
    updateProjectList(task){
@@ -42,10 +52,19 @@ export class TodoService {
    }
 
    postTaskList(todo : Todo){
-     this.http.post('https://doit-32d5b.firebaseio.com/todo.json',todo)
+     this.http.post(`${this.baseUrl}.json`,todo)
      .subscribe(data => {
        console.log(data.json());
        this.todoList.push(todo);    
+     })
+   }
+
+   markToDoAsDone(todo: Todo){
+     todo.isDone = true;
+     todo.endDate = Date.now();
+     this.http.put(`${this.baseUrl}/${todo.id}.json`,todo)
+     .subscribe(data => {
+       console.log(data);
      })
    }
 }

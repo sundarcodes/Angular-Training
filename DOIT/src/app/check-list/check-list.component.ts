@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { Todo } from '../models/todo';
+import { TodoService } from '../service/todo.service';
+
 @Component({
   selector: 'app-check-list',
   templateUrl: './check-list.component.html',
@@ -7,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CheckListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   @Input() title: string;
   @Input() checkList: string[];
@@ -16,6 +19,10 @@ export class CheckListComponent implements OnInit {
 
   updateList (list: string){
     this.updateTask.emit(list);
+  }
+
+  onCheck(todo: Todo){
+    this.todoService.markToDoAsDone(todo);
   }
 
   ngOnInit() {

@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.todoService.fetchTodoData();
     this.projectList = this.todoService.getProjectList();   
     this.personalList = this.todoService.getPersonalList();
   }

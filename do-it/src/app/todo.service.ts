@@ -4,14 +4,13 @@ import { Todo } from './models/todo';
 @Injectable()
 export class TodoService {
 
-  projectList: string[];
-  personalList: string[];
+  
 
   todoList: Todo[] = [];
 
   constructor() {
 
-    let todo1 = new Todo('Fix bug 3434', 'project');
+    let todo1 = new Todo('Fix bug 34341', 'project');
     this.todoList.push(todo1);
     let todo2 = new Todo('Analyze requirement XYZ', 'project');
     this.todoList.push(todo2);
@@ -19,6 +18,9 @@ export class TodoService {
     this.todoList.push(todo3);
     let todo4 = new Todo('Drink water', 'personal');
     this.todoList.push(todo4);
+
+    let todo5 = new Todo('Drink ', 'personal');
+    this.todoList.push(todo5);
     // this.projectList = [
     //     'Fix bug 3434',
     //     'Analyze requirement XYZ'
@@ -38,11 +40,16 @@ export class TodoService {
    }
 
    addTaskToProjects(taskName: string) {
-     this.projectList.push(taskName);
+     console.log(taskName);
+     //this.projectList.push(taskName);
+     this.todoList.push(new Todo(taskName, 'project'));
+     console.log(this.todoList);
    }
 
    addTaskToPersonal(taskName: string) {
-     this.personalList.push(taskName);
+     console.log(taskName);
+     //this.personalList.push(taskName);
+     this.todoList.push(new Todo(taskName, 'personal'));
    }
 
 

@@ -1,10 +1,12 @@
 <div class="input-field">
-  <input id="search" type="search" required>
+  <input id="search" type="search" required placeholder="Search in the Archive">
   <label class="label-icon" for="search"><i class="material-icons">search</i></label>
   <i class="material-icons">close</i>
 </div>
-  <div class="col s6">
-    <p *ngFor="let archive of todoService.getArchiveList()">
+<div class="row">
+  <div *ngFor="let archive of todoService.getArchiveList()">
+    <div class="col s6">
       <app-archive-card [todo]="archive"></app-archive-card>
-    </p>
+    </div>
   </div>
+</div>

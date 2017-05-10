@@ -19,8 +19,9 @@ export class TodoService {
        let keys = Object.keys(response);
        for(let i=0; i<keys.length; i++){
           let todoObj = response[keys[i]];
-          let todoModel = new Todo(todoObj.title,todoObj.category,keys[i]);
+          let todoModel = new Todo(todoObj.title,todoObj.category,keys[i],todoObj.startDate,todoObj.isDone,todoObj.endDate);
           this.todoList.push(todoModel);
+          console.log(this.todoList);
        }
      })
    }

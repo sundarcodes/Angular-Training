@@ -6,8 +6,8 @@
             <a href="#"><i class="material-icons" style="color: grey">close</i></a>            
           </span>
     </span>
-    <span>Start Time: {{todo.startDate}} </span>
-    <span class="right">End Time: {{todo.endDate}}</span>
+    <span>Start Time: {{todo.startDate | date:'y-M-d H:mm a'}} </span>
+    <span class="right">End Time: {{todo.endDate | date:'y-M-d H:mm a'}}</span>
   </div>
   <!--<div class="card-action">
          

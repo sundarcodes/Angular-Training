@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-archive',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
   }

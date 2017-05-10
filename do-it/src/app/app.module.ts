@@ -11,6 +11,7 @@ import { CheckListComponent } from './check-list/check-list.component';
 import { TodoService } from './todo.service';
 import { ArchiveComponent } from './archive/archive.component';
 import { routes } from './app.routes';
+import { TodoCardComponent } from './todo-card/todo-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { routes } from './app.routes';
     Nav,
     HomeComponent,
     CheckListComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    TodoCardComponent
   ],
   imports: [
     BrowserModule,

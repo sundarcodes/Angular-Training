@@ -5,6 +5,6 @@
   id="task" type="text" class="validate" #task (keyup.enter)="addTask(task.value);task.value=''">
 </div>
 <p *ngFor="let item of checkList">
-<input type="checkbox" id="{{item}}" />
-  <label for="{{item}}">{{item.title}}</label>
+<input type="checkbox" id="{{item.id}}" (change)="onCheckboxChange(item, $event)" />
+  <label for="{{item.id}}">{{item.title}}</label>
 </p>

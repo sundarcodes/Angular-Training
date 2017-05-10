@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.todoService.fetchAllTodos();
+    // this.todoService.fetchAllTodos();
   }
 
   onProjectTaskAdded(taskName: string) {

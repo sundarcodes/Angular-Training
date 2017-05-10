@@ -8,10 +8,11 @@ export class TodoService {
   todoList: Todo[] = [];
   baseURL: string = 'https://doit-5db57.firebaseio.com/todo.json';
   constructor(private http: Http) {
-
+    this.fetchAllTodos();
    }
 
-   fetchAllTodos(){
+   fetchAllTodos() {
+    this.todoList = [];
     return this.http.get(this.baseURL)
     .subscribe(data => {
       let resp = data.json();

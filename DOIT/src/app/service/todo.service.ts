@@ -82,6 +82,9 @@ export class TodoService {
    trash(todo: Todo){
     this.http.delete(`${this.baseUrl}/${todo.id}.json`,todo)
     .subscribe(data => {
+      this.todoList.map((list,i) => {
+        list.id == todo.id ? this.todoList.splice(i,1) : this.todoList;
+      })
     })
   }
 }

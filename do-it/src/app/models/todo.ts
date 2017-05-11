@@ -6,11 +6,13 @@ export class Todo {
     isDone: boolean;
     category: string;
 
-    constructor(title: string, category: string, id: string = '') {
-        this.isDone = false;
+    constructor(title: string, category: string, id: string = '',
+     isDone: boolean = false, endDate: number = 0) {
+        this.isDone = isDone;
         this.createdDate = new Date().getTime();
         this.title = title;
         this.category = category;
         this.id = id;
+        this.endDate = endDate;
     }
 }

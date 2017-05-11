@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col s6">
-    <app-check-list title="Project To Do" [checkList]="todoService.getProjectList()"
+    <app-check-list title="Project To Do" [checkList]="projectList"
     (taskAdded)="onProjectTaskAdded($event)">
     </app-check-list>
   </div>
   <div class="col s6">
-    <app-check-list title="Personal To Do" [checkList]="todoService.getPersonalList()"
+    <app-check-list title="Personal To Do" [checkList]="personalList"
     (taskAdded)="onPersonalTaskAdded($event)">
     </app-check-list>
   </div>

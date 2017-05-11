@@ -3,11 +3,11 @@
     <span class="card-title">{{todo.title}}</span>
     <span>
       <i class="material-icons">hourglass_empty</i>
-      28-Apr-2017
+      {{todo.createdDate | date}}
     </span>
     <span>
       <i class="material-icons">hourglass_full</i>
-      30-Apr-2017
+      {{todo.endDate | date}}
     </span>
   </div>
   <div class="card-action">

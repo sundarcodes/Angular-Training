@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Http } from '@angular/http';
 import { Todo } from './models/todo';
 
@@ -7,7 +8,13 @@ export class TodoService {
 
   todoList: Todo[] = [];
   baseURL: string = 'https://doit-5db57.firebaseio.com/todo';
+
+  private todoListSub: BehaviorSubject<Todo[]>; 
+  public todoList$: Observable<Todo[]>;
+
   constructor(private http: Http) {
+    this.todoListSub = new BehaviorSubject([]);
+    this.todoList$ = this.todoListSub.asObservable();
     this.fetchAllTodos();
    }
 
@@ -20,9 +27,11 @@ export class TodoService {
       for(let i = 0;i < keysArr.length; i++) {
         let key = keysArr[i];
         let todoRspObj = resp[key];
-        let todoModel = new Todo(todoRspObj.title, todoRspObj.category, key);
+        let todoModel = new Todo(todoRspObj.title, todoRspObj.category, key,
+        todoRspObj.isDone, todoRspObj.endDate);
         this.todoList.push(todoModel);
       }
+      this.todoListSub.next(this.todoList);
       console.log(this.todoList);
     });
    }
@@ -53,9 +62,10 @@ export class TodoService {
    }
 
    postTask(todo: Todo) {
-    this.http.post(this.baseURL, todo)
+    this.http.post(`${this.baseURL}.json`, todo)
         .subscribe(data => {
-          console.log(data);
+          console.log(data.json());
+          todo.id = data.json().name;
           this.todoList.push(todo);
         }, err => {
           console.log(err);
@@ -64,10 +74,24 @@ export class TodoService {
   }
 
   markTodoAsDone(todo: Todo) {
-    todo.isDone = true;
-    todo.endDate = Date.now();
-    this.http.put(`${this.baseURL}/${todo.id}.json`, todo)
-    .subscribe(res => console.log(res));
+    // todo.isDone = true;
+    // todo.endDate = Date.now();
+    let updatedTodo: Todo = Object.assign({}, todo);
+    updatedTodo.isDone = true;
+    updatedTodo.endDate = Date.now();
+    this.http.put(`${this.baseURL}/${todo.id}.json`, updatedTodo)
+    .subscribe(res => {
+      console.log(res.json());
+      let respTodo = res.json();
+      let todoList: Todo[] = this.todoListSub.getValue();
+      todoList.forEach(todo => {
+        if (todo.id === respTodo.id) {
+          todo.isDone = true;
+          todo.endDate = respTodo.endDate;
+        }
+      });
+      this.todoListSub.next( todoList);
+    });
   }
 
 

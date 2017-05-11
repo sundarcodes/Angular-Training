@@ -4,7 +4,7 @@
   <i class="material-icons">close</i>
 </div>
 <div class="row">
-  <div *ngFor="let archive of todoService.getArchiveList()">
+  <div *ngFor="let archive of archiveList">
     <div class="col s6">
       <app-archive-card [todo]="archive" (renewTask)="taskRenew($event)" (trashTask)="trashTask($event)"></app-archive-card>
     </div>

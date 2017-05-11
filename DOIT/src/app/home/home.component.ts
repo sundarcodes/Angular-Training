@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { TodoService } from '../service/todo.service';
 import { Todo } from '../models/todo';
 
@@ -17,8 +18,14 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.projectList = this.todoService.getProjectList();   
-    this.personalList = this.todoService.getPersonalList();
+     this.todoService.todoObserver$
+     .subscribe(list => {
+      this.projectList = list.filter(todo => todo.category === 'project' && !todo.isDone)
+     });
+    this.todoService.todoObserver$
+    .subscribe(list => {
+      this.personalList = list.filter(todo => todo.category === 'personal' && !todo.isDone)
+    })
   }
 
   projectUpdate(task: string){

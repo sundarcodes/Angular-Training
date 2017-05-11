@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo';
 import { Http } from '@angular/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+
+import { Todo } from '../models/todo';
+
+declare var _: any;
 
 @Injectable()
 export class TodoService {
   
-  todoList: Todo[] = [];
   baseUrl: string = 'https://doit-32d5b.firebaseio.com/todo';
+
+  private todoSub: BehaviorSubject<Todo[]>;
+  public todoObserver$: Observable<Todo[]>;
   
   constructor(private http: Http) {
+    this.todoSub = new BehaviorSubject([]);
+    this.todoObserver$ = this.todoSub.asObservable();
     this.fetchTodoData();
    }
 
    fetchTodoData(){
+     let todoList = [];
      return this.http.get(`${this.baseUrl}.json`)
      .subscribe(data => {
        let response = data.json();
@@ -21,26 +30,18 @@ export class TodoService {
           let todoObj = response[keys[i]];
           todoObj.id = keys[i];
           let todoModel = new Todo(todoObj.title,todoObj.category,keys[i],todoObj.startDate,todoObj.isDone,todoObj.endDate);
-          this.todoList.push(todoObj);
-          console.log(this.todoList);
+          todoList.push(todoObj);
        }
+       this.todoSub.next(todoList);
      })
    }
 
-   getProjectList(){
-     return this.todoList
-     .filter(todo => todo.category === 'project' && !todo.isDone);
-   }
-
-
-   getPersonalList(){
-     return this.todoList
-     .filter(todo => todo.category === 'personal' && !todo.isDone);
-   }
-
    getArchiveList(){
-     return this.todoList
-     .filter(todo => todo.isDone);
+     let todoList = [];
+     return this.todoObserver$
+     .subscribe(list => {
+     return list.filter(todo => todo.isDone)
+     })
    }
 
    updateProjectList(task){
@@ -57,34 +58,55 @@ export class TodoService {
      this.http.post(`${this.baseUrl}.json`,todo)
      .subscribe(data => {
        console.log(data.json());
-       this.todoList.push(todo);    
+       let todoList: Todo[] = this.todoSub.getValue();
+       todo.id = data.json().name;
+       todoList.push(todo);
+       this.todoSub.next(todoList);
      })
    }
 
    markToDoAsDone(todo: Todo){
-     todo.isDone = true;
-     todo.endDate = Date.now();
-     this.http.put(`${this.baseUrl}/${todo.id}.json`,todo)
+     let doneTodo: Todo = Object.assign({}, todo);
+     doneTodo.isDone = true;
+     doneTodo.endDate = Date.now();
+     this.http.put(`${this.baseUrl}/${todo.id}.json`,doneTodo)
      .subscribe(data => {
-       console.log(data);
+       let todoList: Todo[] = this.todoSub.getValue();
+       let response = data.json();
+       _.mapValues(todoList, function(o) { 
+         if(o.id == response.id) {
+            o.isDone = response.isDone;
+            o.endDate = response.endDate 
+          }
+        });
+        this.todoSub.next(todoList);
      })
    }
 
    renew(todo: Todo){
-     todo.isDone = false;
-     todo.endDate = Date.now();
-     this.http.put(`${this.baseUrl}/${todo.id}.json`,todo)
+     let renewTodo: Todo = Object.assign({}, todo);
+     renewTodo.isDone = false;
+     renewTodo.endDate = Date.now();
+     this.http.put(`${this.baseUrl}/${todo.id}.json`,renewTodo)
      .subscribe(data => {
-       console.log(data);
+       let todoList: Todo[] = this.todoSub.getValue();
+       let response = data.json();       
+        _.mapValues(todoList, o => { 
+         if(o.id == response.id) {
+            o.isDone = response.isDone;
+            o.endDate = response.endDate 
+          }
+        });
+        this.todoSub.next(todoList);
      })
    }
 
    trash(todo: Todo){
-    this.http.delete(`${this.baseUrl}/${todo.id}.json`,todo)
+    this.http.delete(`${this.baseUrl}/${todo.id}.json`)
     .subscribe(data => {
-      this.todoList.map((list,i) => {
-        list.id == todo.id ? this.todoList.splice(i,1) : this.todoList;
-      })
+      let todoList: Todo[] = this.todoSub.getValue();
+      _.remove(todoList, list => list.id == todo.id);
+      this.todoSub.next(todoList);
     })
   }
 }

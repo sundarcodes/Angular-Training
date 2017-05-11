@@ -3,10 +3,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Http } from '@angular/http';
 import { Todo } from './models/todo';
 
+declare var _:any;
+
 @Injectable()
 export class TodoService {
 
-  todoList: Todo[] = [];
   baseURL: string = 'https://doit-5db57.firebaseio.com/todo';
 
   private todoListSub: BehaviorSubject<Todo[]>; 
@@ -19,7 +20,7 @@ export class TodoService {
    }
 
    fetchAllTodos() {
-    this.todoList = [];
+    let todoList = [];
     return this.http.get(`${this.baseURL}.json`)
     .subscribe(data => {
       let resp = data.json();
@@ -29,28 +30,10 @@ export class TodoService {
         let todoRspObj = resp[key];
         let todoModel = new Todo(todoRspObj.title, todoRspObj.category, key,
         todoRspObj.isDone, todoRspObj.endDate);
-        this.todoList.push(todoModel);
+        todoList.push(todoModel);
       }
-      this.todoListSub.next(this.todoList);
-      console.log(this.todoList);
+      this.todoListSub.next(todoList);
     });
-   }
-
-   getProjectList() {
-     return this.todoList
-     .filter(todo => todo.category === 'project' && !todo.isDone);
-   }
-
-   getPersonalList() {
-     return this.todoList
-     .filter(todo => todo.category === 'personal' && !todo.isDone);
-   }
-
-   getArchiveList() {
-     console.log(this.todoList
-     .filter(todo => todo.isDone));
-     return this.todoList
-     .filter(todo => todo.isDone);
    }
 
    addTaskToProjects(taskName: string) {
@@ -64,14 +47,27 @@ export class TodoService {
    postTask(todo: Todo) {
     this.http.post(`${this.baseURL}.json`, todo)
         .subscribe(data => {
-          console.log(data.json());
+          // console.log(data.json());
           todo.id = data.json().name;
-          this.todoList.push(todo);
+          let todoList: Todo[] = this.todoListSub.getValue();
+          todoList.push(todo);
+          this.todoListSub.next(todoList);
         }, err => {
           console.log(err);
         })
    
   }
+
+  deleteTodo(id: string) {
+    this.http.delete(`${this.baseURL}/${id}.json`)
+    .subscribe(res => {
+      console.log(res.json());
+      // Delete the Object
+      let todoList: Todo[] = this.todoListSub.getValue();
+      _.remove(todoList, todo => todo.id === id);
+      this.todoListSub.next(todoList);
+    })
+  } 
 
   markTodoAsDone(todo: Todo) {
     // todo.isDone = true;

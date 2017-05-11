@@ -11,8 +11,8 @@
     </span>
   </div>
   <div class="card-action">
-    <a href="#">Trash this</a>
-    <a href="#">Roll this back</a>
+    <a (click)="delete(todo.id)">Trash this</a>
+    <a (click)="revert(todo)">Roll this back</a>
   </div>
 </div>
             

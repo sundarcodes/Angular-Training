@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { TodoService } from '../todo.service';
 import { Todo } from '../models/todo';
 
 @Component({
@@ -10,9 +11,13 @@ import { Todo } from '../models/todo';
 export class TodoCardComponent implements OnInit {
 
   @Input() todo: Todo;
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+  }
+
+  delete(id) {
+    this.todoService.deleteTodo(id);
   }
 
 }

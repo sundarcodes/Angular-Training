@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { TodoService } from '../service/todo.service';
 import { Todo } from '../models/todo';
+import { TodoParent } from '../models/todoParent';
 
 @Component({
   selector: 'app-home',
@@ -11,29 +12,31 @@ import { Todo } from '../models/todo';
 export class HomeComponent implements OnInit {
 
   projectList: Todo[];
-  personalList: Todo[];
+  parentList: Todo[];
+  todoParent: TodoParent[];
 
   constructor(private todoService: TodoService) {
         
    }
 
   ngOnInit() {
+
+    this.todoService.todoParentObserver$
+    .subscribe(parentList => {
+      this.todoParent = parentList;
+    });
+    console.log(this.todoParent);
+  }
+
+  getParentList(name: string){
      this.todoService.todoObserver$
      .subscribe(list => {
-      this.projectList = list.filter(todo => todo.category === 'project' && !todo.isDone)
+      this.parentList = list.filter(todo => todo.category === name && !todo.isDone)
      });
-    this.todoService.todoObserver$
-    .subscribe(list => {
-      this.personalList = list.filter(todo => todo.category === 'personal' && !todo.isDone)
-    })
+     return this.parentList;
   }
 
-  projectUpdate(task: string){
-    this.todoService.updateProjectList(task);
+  parentUpdate(task: string,parent){
+    this.todoService.updateParentList(task,parent);
   }
-
-  personalUpdate(task: string){
-    this.todoService.updatePersonalList(task);
-  }
-
 }

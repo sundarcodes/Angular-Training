@@ -3,26 +3,33 @@ import { Http } from '@angular/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Todo } from '../models/todo';
+import { TodoParent } from '../models/todoParent';
 
 declare var _: any;
 
 @Injectable()
 export class TodoService {
   
-  baseUrl: string = 'https://doit-32d5b.firebaseio.com/todo';
+  todoBaseUrl: string = 'https://doit-32d5b.firebaseio.com/todo';
+  todoParentUrl: string = 'https://doit-32d5b.firebaseio.com/todoParent';
 
   private todoSub: BehaviorSubject<Todo[]>;
   public todoObserver$: Observable<Todo[]>;
+  private todoParentSub: BehaviorSubject<TodoParent[]>;
+  public todoParentObserver$ : Observable<TodoParent[]>;
   
   constructor(private http: Http) {
     this.todoSub = new BehaviorSubject([]);
     this.todoObserver$ = this.todoSub.asObservable();
+    this.todoParentSub = new BehaviorSubject([]);
+    this.todoParentObserver$ = this.todoParentSub.asObservable();
     this.fetchTodoData();
+    this.fetchParentData();
    }
 
    fetchTodoData(){
      let todoList = [];
-     return this.http.get(`${this.baseUrl}.json`)
+     return this.http.get(`${this.todoBaseUrl}.json`)
      .subscribe(data => {
        let response = data.json();
        let keys = Object.keys(response);
@@ -36,26 +43,13 @@ export class TodoService {
      })
    }
 
-   getArchiveList(){
-     let todoList = [];
-     return this.todoObserver$
-     .subscribe(list => {
-     return list.filter(todo => todo.isDone)
-     })
-   }
-
-   updateProjectList(task){
-     let todo = new Todo(task,'project');
-     this.postTaskList(todo);
-   }
-
-   updatePersonalList(task){
-     let todo = new Todo(task,'personal');
+   updateParentList(task,parent){
+     let todo = new Todo(task,parent);
      this.postTaskList(todo);
    }
 
    postTaskList(todo : Todo){
-     this.http.post(`${this.baseUrl}.json`,todo)
+     this.http.post(`${this.todoBaseUrl}.json`,todo)
      .subscribe(data => {
        console.log(data.json());
        let todoList: Todo[] = this.todoSub.getValue();
@@ -69,11 +63,11 @@ export class TodoService {
      let doneTodo: Todo = Object.assign({}, todo);
      doneTodo.isDone = true;
      doneTodo.endDate = Date.now();
-     this.http.put(`${this.baseUrl}/${todo.id}.json`,doneTodo)
+     this.http.put(`${this.todoBaseUrl}/${todo.id}.json`,doneTodo)
      .subscribe(data => {
        let todoList: Todo[] = this.todoSub.getValue();
        let response = data.json();
-       _.mapValues(todoList, function(o) { 
+       _.mapValues(todoList, o => { 
          if(o.id == response.id) {
             o.isDone = response.isDone;
             o.endDate = response.endDate 
@@ -87,7 +81,7 @@ export class TodoService {
      let renewTodo: Todo = Object.assign({}, todo);
      renewTodo.isDone = false;
      renewTodo.endDate = Date.now();
-     this.http.put(`${this.baseUrl}/${todo.id}.json`,renewTodo)
+     this.http.put(`${this.todoBaseUrl}/${todo.id}.json`,renewTodo)
      .subscribe(data => {
        let todoList: Todo[] = this.todoSub.getValue();
        let response = data.json();       
@@ -102,11 +96,39 @@ export class TodoService {
    }
 
    trash(todo: Todo){
-    this.http.delete(`${this.baseUrl}/${todo.id}.json`)
+    this.http.delete(`${this.todoBaseUrl}/${todo.id}.json`)
     .subscribe(data => {
       let todoList: Todo[] = this.todoSub.getValue();
       _.remove(todoList, list => list.id == todo.id);
       this.todoSub.next(todoList);
+    })
+  }
+
+  addParentTask(parentTask: string){
+    let todoParent = new TodoParent(parentTask);
+    this.http.post(`${this.todoParentUrl}.json`,todoParent)
+     .subscribe(data => {
+       console.log(data.json());
+       let todoParentList: TodoParent[] = this.todoParentSub.getValue();
+       todoParent.id = data.json().name;
+       todoParentList.push(todoParent);
+       this.todoParentSub.next(todoParentList);
+     })
+  }
+
+  fetchParentData(){
+    let parentList = [];
+    this.http.get(`${this.todoParentUrl}.json`)
+    .subscribe(data => {
+      let response = data.json();
+      let keys = Object.keys(response);
+       for(let i=0; i<keys.length; i++){
+          let todoParentObj = response[keys[i]];
+          todoParentObj.id = keys[i];
+          let todoParentModel = new Todo(todoParentObj.name,todoParentObj.created_at,keys[i]);
+          parentList.push(todoParentObj);
+       }
+       this.todoParentSub.next(parentList);
     })
   }
 }

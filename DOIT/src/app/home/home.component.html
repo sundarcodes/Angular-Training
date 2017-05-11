@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col s6">
-    <app-check-list title="Project To-do's" [checkList]="projectList" (updateTask)="projectUpdate($event)"></app-check-list>
+  <div class="col s3" *ngFor="let parent of todoParent">
+    <app-check-list title="{{parent.name}}" [checkList]="getParentList(parent.name)" (updateTask)="parentUpdate($event,parent.name)"></app-check-list>
   </div>
-  <div class="col s6">
+  <!--<div class="col s6">
     <app-check-list title="Personal To-do's" [checkList]="personalList" (updateTask)="personalUpdate($event)"></app-check-list>
-  </div>
+  </div>-->
 </div>

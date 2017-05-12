@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { Nav } from "./nav/nav.component";
@@ -21,7 +22,8 @@ import { ArchiveCardComponent } from './archive-card/archive-card.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MaterializeModule 
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

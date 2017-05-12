@@ -23,3 +23,10 @@ nav .input-field label {
     padding-left: 1em;
     width: calc(100% - 1rem);
 }
+
+.addTask{
+    right: 10px;
+    left: 75%;
+    width: 20%;
+    top: 13% !important;
+}

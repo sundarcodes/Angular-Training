@@ -1,10 +1,10 @@
 <div class="input-field">
-  <input id="search" type="search" required placeholder="Search in the Archive">
+  <input id="search" type="search" required placeholder="Search in the Archive" #search (keyup)="searchKeyword(search.value)">
   <label class="label-icon" for="search"><i class="material-icons">search</i></label>
   <i class="material-icons">close</i>
 </div>
 <div class="row">
-  <div *ngFor="let archive of archiveList">
+  <div *ngFor="let archive of archiveList$ | async">
     <div class="col s6">
       <app-archive-card [todo]="archive" (renewTask)="taskRenew($event)" (trashTask)="trashTask($event)"></app-archive-card>
     </div>

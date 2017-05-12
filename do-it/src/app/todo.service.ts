@@ -32,6 +32,7 @@ export class TodoService {
         todoRspObj.isDone, todoRspObj.endDate);
         todoList.push(todoModel);
       }
+      console.log(todoList);
       this.todoListSub.next(todoList);
     });
    }
@@ -84,6 +85,25 @@ export class TodoService {
         if (todo.id === respTodo.id) {
           todo.isDone = true;
           todo.endDate = respTodo.endDate;
+        }
+      });
+      this.todoListSub.next( todoList);
+    });
+  }
+
+  revertTodo(todo: Todo) {
+    let updatedTodo: Todo = Object.assign({}, todo);
+    updatedTodo.isDone = false;
+    updatedTodo.endDate = 0;
+    this.http.put(`${this.baseURL}/${todo.id}.json`, updatedTodo)
+    .subscribe(res => {
+      console.log(res.json());
+      let respTodo = res.json();
+      let todoList: Todo[] = this.todoListSub.getValue();
+      todoList.forEach(todo => {
+        if (todo.id === respTodo.id) {
+          todo.isDone = false;
+          todo.endDate = 0;
         }
       });
       this.todoListSub.next( todoList);

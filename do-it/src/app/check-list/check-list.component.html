@@ -6,5 +6,7 @@
 </div>
 <p *ngFor="let item of checkList">
 <input type="checkbox" id="{{item.id}}" (change)="onCheckboxChange(item, $event)" />
-  <label for="{{item.id}}">{{item.title}}</label>
+  <label for="{{item.id}}"
+  class="status-indicator" [ngClass]="{'ok': isOk(item), 'warn': isDueByOneDay(item), 'danger': isOverDue(item)}">
+  {{item.title}}</label>
 </p>

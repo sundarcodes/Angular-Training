@@ -20,4 +20,8 @@ export class TodoCardComponent implements OnInit {
     this.todoService.deleteTodo(id);
   }
 
+  revert(todo: Todo) {
+    this.todoService.revertTodo(todo);
+  }
+
 }

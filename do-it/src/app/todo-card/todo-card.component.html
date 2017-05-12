@@ -1,14 +1,16 @@
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{todo.title}}</span>
-    <span>
-      <i class="material-icons">hourglass_empty</i>
-      {{todo.createdDate | date}}
-    </span>
-    <span>
-      <i class="material-icons">hourglass_full</i>
-      {{todo.endDate | date}}
-    </span>
+    <div class="flex-container">
+      <span>
+        <i class="material-icons">hourglass_empty</i>
+        {{todo.createdDate | date}}
+      </span>
+      <span>
+        <i class="material-icons">hourglass_full</i>
+        {{todo.endDate | date}}
+      </span>
+    </div>
   </div>
   <div class="card-action">
     <a (click)="delete(todo.id)">Trash this</a>

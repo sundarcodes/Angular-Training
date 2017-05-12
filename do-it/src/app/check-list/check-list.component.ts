@@ -5,7 +5,7 @@ import { TodoService } from '../todo.service';
 @Component({
   selector: 'app-check-list',
   templateUrl: './check-list.component.html',
-  styleUrls: ['./check-list.component.css']
+  styleUrls: ['./check-list.component.scss']
 })
 export class CheckListComponent implements OnInit {
 
@@ -18,6 +18,30 @@ export class CheckListComponent implements OnInit {
 
   ngOnInit() {
   // console.log(this.checkList);
+  }
+
+  isOk(item) {
+    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let milliSecondsInADay = 24 * 60 * 60 * 1000;
+    return diffInTime > milliSecondsInADay ? false: true;
+  }
+
+  isDueByOneDay(item) {
+    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let milliSecondsIn2Days = 2 * 24 * 60 * 60 * 1000;
+    return diffInTime > milliSecondsIn2Days ? false: true;
+  }
+
+  isOverDue(item) {
+    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let milliSecondsIn3Days = 3 * 24 * 60 * 60 * 1000;
+    return diffInTime > milliSecondsIn3Days ? false: true;
+  }
+
+  findTotalMsElapsed(startDate: number) {
+    let currentDate = Date.now();
+    let diffInTime = currentDate - startDate; 
+    return diffInTime;
   }
   
   addTask(taskName: string) {

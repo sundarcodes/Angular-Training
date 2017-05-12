@@ -1,0 +1,15 @@
+.status-indicator {
+    border-right-width: thick;
+    border-right-style: solid;
+    padding-right: 10px;
+    &.ok {
+        border-right-color: green;
+    }
+    &.warn {
+        border-right-color: orange;
+    }
+    &.danger {
+        border-right-color: red;
+    }
+}
+

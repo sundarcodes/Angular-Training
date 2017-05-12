@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import {Todo } from '../models/todo';
 
 @Component({
@@ -10,14 +12,26 @@ import {Todo } from '../models/todo';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor(private todoService: TodoService) { }
+  searchStringSub: BehaviorSubject<string>;
 
-  archiveList: Todo[];
+  constructor(private todoService: TodoService) { 
+    this.searchStringSub = new BehaviorSubject('');
+  }
+
+
+
+  archiveList$: Observable<Todo[]>;
   ngOnInit() {
-    this.todoService.todoList$
-    .subscribe(list => {
-      this.archiveList = list.filter(todo => todo.isDone);
-    })
+    this.archiveList$ = this.todoService.todoList$
+    .combineLatest(this.searchStringSub, (list, searchString) => {
+      // console.log(list, searchString);
+      return list.filter(todo => todo.isDone && todo.title.includes(searchString));
+    });
+  }
+
+  onKeyUp(searchStr: string) {
+    console.log(searchStr);
+    this.searchStringSub.next(searchStr);
   }
 
 }

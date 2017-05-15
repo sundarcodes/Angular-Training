@@ -14,6 +14,7 @@ export class CheckListComponent implements OnInit {
 
   @Input() title: string;
   @Input() checkList: string[];
+  @Input() parentId: string;
 
   @Output() updateTask: EventEmitter<string> = new EventEmitter;
 
@@ -23,6 +24,10 @@ export class CheckListComponent implements OnInit {
 
   onCheck(todo: Todo){
     this.todoService.markToDoAsDone(todo);
+  }
+
+  editParent(parentId){
+    console.log(parentId);
   }
 
   ngOnInit() {

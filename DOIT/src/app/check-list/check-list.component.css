@@ -14,3 +14,7 @@
 .checklist::-webkit-scrollbar-thumb {
     background: rgba(49, 43, 43, 0.87);
 }
+
+.pointer{
+    cursor: pointer;
+}

@@ -28,6 +28,7 @@ export class Nav {
 
     addParentTask(parentTask: string){
        this.todoService.addParentTask(parentTask);
+       this.closeModal();
     }
 
     ngOnInit(){

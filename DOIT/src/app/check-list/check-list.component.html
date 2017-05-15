@@ -1,6 +1,11 @@
 <div class="card">
   <div class="card-content">
-    <span class="card-title">{{title}}</span>
+    <span class="card-title">{{title}}
+     <span class="right">
+            <a class="pointer" (click)="editParent(parentId)"><i class="material-icons" style="color: grey ">edit</i></a>
+            <a class="pointer" (click)="trash(todo)"><i class="material-icons" style="color: #B71C1C ">close</i></a>            
+     </span>
+    </span>
     <div class="input-field">
       <input placeholder="Log you list for the Day!" #task (keyup.enter)="updateList(task.value); task.value='';" id="title" type="text"
         class="validate">

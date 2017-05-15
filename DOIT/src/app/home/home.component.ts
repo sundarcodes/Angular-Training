@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit {
     console.log(this.todoParent);
   }
 
-  getParentList(name: string){
+  getParentList(id: string){
      this.todoService.todoObserver$
      .subscribe(list => {
-      this.parentList = list.filter(todo => todo.category === name && !todo.isDone)
+      this.parentList = list.filter(todo => todo.category === id && !todo.isDone)
      });
      return this.parentList;
   }

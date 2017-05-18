@@ -29,7 +29,7 @@ export class TodoService {
         let key = keysArr[i];
         let todoRspObj = resp[key];
         let todoModel = new Todo(todoRspObj.title, todoRspObj.category, key,
-        todoRspObj.isDone, todoRspObj.endDate);
+        todoRspObj.isDone, todoRspObj.createdDate, todoRspObj.endDate);
         todoList.push(todoModel);
       }
       console.log(todoList);

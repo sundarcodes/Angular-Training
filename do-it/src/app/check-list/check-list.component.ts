@@ -21,26 +21,29 @@ export class CheckListComponent implements OnInit {
   }
 
   isOk(item) {
-    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let diffInTime = this.findTotalMsElapsed(item.createdDate);
     let milliSecondsInADay = 24 * 60 * 60 * 1000;
-    return diffInTime > milliSecondsInADay ? false: true;
+    console.log(diffInTime, milliSecondsInADay);
+    return (diffInTime < milliSecondsInADay) ? true: false;
   }
 
   isDueByOneDay(item) {
-    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let diffInTime = this.findTotalMsElapsed(item.createdDate);
+    let milliSecondsInADay = 24 * 60 * 60 * 1000;
     let milliSecondsIn2Days = 2 * 24 * 60 * 60 * 1000;
-    return diffInTime > milliSecondsIn2Days ? false: true;
+    return (diffInTime > milliSecondsInADay && diffInTime < milliSecondsIn2Days  ) ? true: false;
   }
 
   isOverDue(item) {
-    let diffInTime = this.findTotalMsElapsed(item.startDate);
+    let diffInTime = this.findTotalMsElapsed(item.createdDate);
     let milliSecondsIn3Days = 3 * 24 * 60 * 60 * 1000;
-    return diffInTime > milliSecondsIn3Days ? false: true;
+    return diffInTime > milliSecondsIn3Days ? true: false;
   }
 
-  findTotalMsElapsed(startDate: number) {
+  findTotalMsElapsed(createdDate: number) {
     let currentDate = Date.now();
-    let diffInTime = currentDate - startDate; 
+    console.log(createdDate, Date.now());
+    let diffInTime = currentDate - createdDate; 
     return diffInTime;
   }
   

@@ -7,9 +7,9 @@ export class Todo {
     category: string;
 
     constructor(title: string, category: string, id: string = '',
-     isDone: boolean = false, endDate: number = 0) {
+     isDone: boolean = false, createdDate: number = Date.now(), endDate: number = 0) {
         this.isDone = isDone;
-        this.createdDate = new Date().getTime();
+        this.createdDate = createdDate;
         this.title = title;
         this.category = category;
         this.id = id;

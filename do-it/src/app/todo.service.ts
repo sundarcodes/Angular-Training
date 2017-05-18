@@ -32,7 +32,7 @@ export class TodoService {
         todoRspObj.isDone, todoRspObj.createdDate, todoRspObj.endDate);
         todoList.push(todoModel);
       }
-      console.log(todoList);
+      // console.log(todoList);
       this.todoListSub.next(todoList);
     });
    }

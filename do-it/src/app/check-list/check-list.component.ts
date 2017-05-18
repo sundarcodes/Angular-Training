@@ -23,7 +23,7 @@ export class CheckListComponent implements OnInit {
   isOk(item) {
     let diffInTime = this.findTotalMsElapsed(item.createdDate);
     let milliSecondsInADay = 24 * 60 * 60 * 1000;
-    console.log(diffInTime, milliSecondsInADay);
+    // console.log(diffInTime, milliSecondsInADay);
     return (diffInTime < milliSecondsInADay) ? true: false;
   }
 
@@ -42,7 +42,7 @@ export class CheckListComponent implements OnInit {
 
   findTotalMsElapsed(createdDate: number) {
     let currentDate = Date.now();
-    console.log(createdDate, Date.now());
+    // console.log(createdDate, Date.now());
     let diffInTime = currentDate - createdDate; 
     return diffInTime;
   }

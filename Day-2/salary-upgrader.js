@@ -10,7 +10,13 @@ var SalaryUpgrader = (function () {
             emp.updateSalary(newSalary);
         });
     };
-    SalaryUpgrader.prototype.addBonus = function () {
+    SalaryUpgrader.prototype.addBonus = function (percentRaise, empList) {
+        empList.map(function (emp) {
+            var orginalSalary = emp.getSalary();
+            var hikeSalary = (orginalSalary * percentRaise / 100) + orginalSalary;
+            var newBonusSal = hikeSalary > 10000 ? hikeSalary + 1000 : hikeSalary + 500;
+            emp.updateSalary(newBonusSal);
+        });
     };
     return SalaryUpgrader;
 }());

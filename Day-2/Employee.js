@@ -5,9 +5,11 @@ var Employee = (function () {
         this.id = id;
         this.name = name;
         this.salary = salary;
+        this.rating = 0;
+        this.bonus = 0;
     }
     Employee.prototype.printInfo = function () {
-        console.log(this.name + " gets " + this.salary);
+        console.log(this.name + " gets " + this.salary + " and bonus " + this.bonus + " with rating " + this.rating);
     };
     Employee.prototype.updateSalary = function (newSalary) {
         this.salary = newSalary;

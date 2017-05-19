@@ -10,7 +10,11 @@ export class SalaryUpgrader {
             emp.updateSalary(newSalary);
         })        
     }
-    addBonus() {
-
+    addBonus(empList: Employee[]) {
+        empList.map(emp => {
+            let actualSalary = emp.getSalary();
+            let bonusSalary = (actualSalary < 40000 ? actualSalary + 10000 : actualSalary);
+            emp.updateSalary(bonusSalary);
+        })
     }
 }

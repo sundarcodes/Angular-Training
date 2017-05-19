@@ -1,0 +1,27 @@
+<div class="navbar-fixed">
+  <nav class="grey darken-3">
+    <div id="dropdown1" class="dropdown-content">
+    </div>
+    <div class="nav-wrapper">
+      <a [routerLink]="['home']" class="brand-logo">DO-IT</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <!--<li><div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon right" for="search"><i class="material-icons right">search</i></label>
+        </div></li>-->
+        <li [hidden]="!addTitle">
+        </li>
+        <li><a class="btn-floating btn-medium waves-effect waves-light red darken-4 add" (click)="openModal()"><i class="small material-icons">add</i></a></li>             
+        <li><a [routerLink]="['archive']">Archive</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div id="modal1" class="modal addTask" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h5>Add a Todo</h5>
+      <input class="large" type="text" #parentTask (keyup.enter)="addParentTask(parentTask.value); parentTask.value='';" placeholder="Enter todo Title">    
+  </div>
+ 
+</div>

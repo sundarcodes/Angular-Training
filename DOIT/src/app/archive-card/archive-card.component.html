@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{todo.title}}
+          <span class="right">
+            <a class="pointer" (click)="renew(todo)"><i class="material-icons">autorenew</i></a>
+            <a class="pointer" (click)="trash(todo)"><i class="material-icons" style="color: grey">close</i></a>            
+          </span>
+    </span>
+    <span>Start Time: {{todo.startDate | date:'y-M-d H:mm a'}} </span>
+    <span class="right">End Time: {{todo.endDate | date:'y-M-d H:mm a'}}</span>
+  </div>
+  <!--<div class="card-action">
+         
+        <a href="#">This is a link</a>
+        <a href="#">This is a link</a>
+      </div>-->
+</div>

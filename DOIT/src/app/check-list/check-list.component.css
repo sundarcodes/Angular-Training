@@ -1,0 +1,20 @@
+.checklist{
+    height: 150px;
+    overflow-y: scroll;
+    display: block;
+    overflow: auto;
+}
+
+.checklist::-webkit-scrollbar {
+  width: 5px;
+  height: 3px;
+  background-color: #aaa; /* or add it to the track */
+}
+
+.checklist::-webkit-scrollbar-thumb {
+    background: rgba(49, 43, 43, 0.87);
+}
+
+.pointer{
+    cursor: pointer;
+}

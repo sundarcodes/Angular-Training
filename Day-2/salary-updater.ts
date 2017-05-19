@@ -3,8 +3,9 @@ import { SalaryUpgrader } from './salary-upgrader';
 
 let org: Organization = new Organization('ABC');
 org.createEmployees();
-org.printEmployeesInfo();
+//org.printEmployeesInfo();
 let salaryUpgrader: SalaryUpgrader = new SalaryUpgrader();
 salaryUpgrader.incrementSalary(10, org.getEmployeeList());
 org.printEmployeesInfo();
-
+salaryUpgrader.addBonus(org.getEmployeeList());
+org.printEmployeesInfo();

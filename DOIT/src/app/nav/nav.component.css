@@ -1,0 +1,32 @@
+.input-field input[type=search] {
+    /* display: block; */
+    /* line-height: inherit; */
+    padding-left: 4rem;
+    width: calc(100% - 4rem);
+}
+
+nav .input-field input {
+    height: 30px;
+    font-size: 1.2rem;
+    border: none;
+    display: inline-block;
+    /* padding-left: 2rem; */
+    /* margin-top: 10px; */
+}
+
+nav .input-field label {
+    top: 0;
+    right: 0px;
+}
+
+.input-field[_ngcontent-c1] input[type=search][_ngcontent-c1] {
+    padding-left: 1em;
+    width: calc(100% - 1rem);
+}
+
+.addTask{
+    right: 10px;
+    left: 75%;
+    width: 20%;
+    top: 13% !important;
+}

@@ -1,24 +1,160 @@
 1) Find the factorial of a given number. If the given number is 5, factorial is computed as 5*4*3*2*1 which equates to 120. Please write a program which would find the factorial for any number.
 Input: 5
 Output: 120
+HTML:
+<!DOCTYPE html>
+<html>
+<head>
+<title>factorial</title>
+<script src="factorial.js"></script>
+</head>
+<body>
+Enter a positive Input: <input type=text id="num"><br>
+<button style="height: 25px;width:100px; color:red" onClick=factorial()>factorial</button><br><br>
+Output: <input type=text id="final">
+</body>
+
+</html>
+JS:
+function factorial(){
+	var fact=1, num=1,i;
+	num = document.getElementById("num").value;
+	 for(i=1;i<=num;i++){
+		 fact = fact*i;
+		 
+		}
+		document.getElementById("final").value = fact;
+	
+}
 
 2) If we list all the natural numbers till 10 i.e. 1 to 10, the sum of these numbers is 55. Find the sum of the first 500 natural numbers.
 Input: 10
 Output: 45
+HTML:
+<!DOCTYPE html5>
+<html>
+<head>
+<script src="second.js"></script>
+</head>
+<body>
+<h3>Sum of first n natural numbers</h3>
+Enter num<input type=text id=num>
+Value: <input type=text id=val>
+<button onClick=total()> calculate </button>
+JS:
+function total(){
+	var num = 1, total=0;
+	num = document.getElementById("num").value;
+	//total = (num*(num+1))/2;
+	for(var i=1;i<=num;i++){
+		total = total+i;
+	}
+	document.getElementById("val").value = total;
+}
+</body>
+</html>
 
 3) If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
 Find the sum of all the multiples of 3 or 5 below 1000.
 Input: 10
 Output: 23
+HTML:
+<!DOCTYPE html>
+<html>
+<head>
+<script src="third.js"></script>
+</head>
+<body>
+<p>To find the sum of all the multiples of 3 or 5 below 1000</p>
+<button onClick=PrintStr()>Calculate</button>
+</body>
+</html>
+JS:
+function PrintStr(){
+var temp1=0,temp2=0,temp3=0,tot;
+for(var i=1;i<=1000;i++){
+ if(i%3==0 && i%5!=0){
+   temp1= temp1+i;
+ }
+ else if(i%3!=0 && i%5==0){
+   temp2= temp2+i;
+ }
+ else if(i%3==0 && i%5==0){
+   temp3= temp3+i;
+ }
+ else{
+  continue;
+  }
+}
+tot = temp1+temp2+temp3;
+document.write("the sum of all the multiples of 3 or 5 below 1000  is"+ tot);	
+
+}
 
 4) Given a number, find the closest power of 2 which is less than or equal to the number. If the number is 36, your answer should be 5 as 32 (2^5) is the closest power less than 36.
 Input: 36
 Output: 5
+HTML:
+<!DOCTYPE html>
+<html>
+<head>
+<script src="fourth.js"></script>
+</head>
+<body>
+Enter a number:<input type="text" id="num" name="num">
+<button onClick=findPower()>Calculate</button>
+</body>
+</html>
 
+JS:
+
+function findPower(){
+var  N = document.getElementById("num").value;
+var v = 1;    
+while (v <= N)
+  v *= 2
+v = v/2
+ console.log(v);
+console.log(Math.log(v));
+}
 5) Write a program that prints the numbers from 1 to N. But,  for multiples of three,  print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”.
 Input: N = 17
 Output:
 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz,Buzz,11,Fizz,13,14,FizzBuzz,16,17
+HTML:
+<!DOCTYPE html>
+<html>
+<head>
+<script src="C:\\Users\\sowmyat\\Desktop\\js assignment\\5th\\five.js"></script>
+</head>
+<body>
+Enter a number:<input type="text" id="last" name="last">
+
+<button onClick=PrintStr()>Calculate</button>
+</body>
+</html>
+JS:
+function PrintStr(){
+	
+var num =1;
+num = document.getElementById("last").value;
+console.log(num);
+for(i=1;i<=num;i++){
+ if(i%3==0&&i%5!=0){
+  document.write("Fizz,");
+  }
+  else if(i%5==0&&i%3!=0){
+  document.write("Buzz,");
+  }
+  else if(i%5==0&&i%3!=0){
+  document.write("FizzBuzz,");
+  }
+  else{
+  document.write(i+",");
+  }
+
+}
+}
 
 6) Find all pairs in array of integers whose sum is equal to given number.
 Input: sum = 8
@@ -28,6 +164,25 @@ Output:
 "4, 4"
 "3, 5"
 "5, 3"
+HTML:
+JS:
+function findPairs(){
+var array = [1, 4, 3, 5, 4, 6, 7, 8, 3];
+var sum=0,i,temp=0;
+sum= document.getElementById("sum").value;
+for(i=0;i<array.length;i++){
+	for(y=i+1;y<array.length;y++){
+		if(array[i]+array[y]== sum){
+			document.write(array[i]+"  "+array[y]+"<br>");
+			temp++;
+			
+		}
+	}
+	
+}
+if(temp==0)
+document.write("no such value as"+ sum);
+}
 
 7) Given an array print all the numbers that are repeating in it.
 Input: [1, 2, 3, 5, 8, 4, 7, 9, 1, 4, 12, 5, 6, 5, 2, 1, 0, 8, 1]
@@ -38,20 +193,136 @@ Output:
 "8"
 "4"
 Note: The final order of output need not be the same as above.
+HTML:
+<!DOCTYPE>
+<html>
+<head>
+<script src="seven.js"></script>
+</head>
+<body>
+<p>The array is [1, 2, 3, 5, 8, 4, 7, 9, 1, 4, 12, 5, 6, 5, 2, 1, 0, 8, 1]</p>
+</body>
+</html>
+JS:
+var numbers = [1, 2, 3, 5, 8, 4, 7, 9, 1, 4, 12, 5, 6, 5, 2, 1, 0, 8, 1];
+var duplicates = [];
 
+function goThroughArray(arr) {
+    for(var i = 0;i < arr.length; i++) {
+        if((arr.lastIndexOf(arr[i]) != i) &&
+           (duplicates.indexOf(arr[i]) == -1)) {
+            duplicates += arr[i];
+        }
+    }
+    return duplicates;
+}
+
+alert(goThroughArray(numbers));
 8)  Given an object, containing names as keys and amount_paid by each of them as
 values, write a function that takes such an object as input and calculates the total sum paid by them together.
 Input: {"Rick": 85, "Amit": 42, "George": 53, "Tanya": 60, "Linda": 35}
 Output: 275
-
+HTML:
+<!DOCTYPE html5>
+<html>
+<head>
+<script src="eigth.js"></script>
+</head>
+<body>
+<p>to print sum of all values in an object</p>
+</body>
+</html>
+JS:
+var obj = {"Rick": 85, "Amit": 42, "George": 53, "Tanya": 60, "Linda": 35};
+var sum = 0;
+for(var key in obj){
+  sum += parseInt(obj[key]); 
+}
+alert("the sum of all values in object:"+ sum);
 9) Write a function to check whether a given string is a palindrome or not.
 Input: "Mom"
 Output: true
 Input: "sister"
 Output: false
+HTML:
+<!DOCTYPE>
+<html>
+<head>
+<script src="nine.js"></script>
+</head>
+<body>
+<h2>Javascript Palindrome Checking Function</h2>
+Enter a string to check:<input type="text" id="check">
+<button onClick=palindrome(document.getElementById('check').value)>Palindrome</button>
+<p id="abc"></p>
+</body>
+</html>
+
+JS:
+function palindrome(myString){
+
+/* remove special characters, spaces and make lowercase*/
+var removeChar = myString.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+
+/* reverse removeChar for comparison*/
+var checkPalindrome = removeChar.split('').reverse().join('');
+
+/* Check to see if myString is a Palindrome*/
+if(removeChar === checkPalindrome){
+  
+  document.getElementById("abc").innerHTML="<div>"+ myString + " is a Palindrome <div>";
+}else{
+  
+  document.getElementById("abc").innerHTML="<div>" + myString + " is not a Palindrome </div>";
+}
+}
+
+
 
 10) Write a function that takes an array of words and returns an array containing
 only of palindromes.
 Note: Use the above function to check if a word is a palindrome.
 Input: ["Malayalam", "tree", "boat", "civic", "melt", "level"]
 Output: ["Malayalam", "civic", "level"]
+HTML:
+
+<!DOCTYPE>
+<html>
+<head>
+<script src="tenth.js"></script>
+</head>
+<body>
+<h2>Javascript Palindrome in an Array</h2>
+The array is
+<button onClick=palindrome()>Palindrome</button>
+<p id="abc"></p>
+</body>
+</html>
+
+JS:
+var array= ["Malayalam", "tree", "boat", "civic", "melt", "level"];
+var temp;
+
+function palindrome(){
+console.log(array[0]);
+for(var i=0;i<=array.length;i++){
+	
+	console.log(array[i]);
+/* remove special characters, spaces and make lowercase*/
+//var removeChar = array[i].replace(/[^A-Z0-9]/ig, "").toLowerCase();
+
+/* reverse removeChar for comparison*/
+//var checkPalindrome = removeChar.split('').reverse().join('');
+
+/* Check to see if myString is a Palindrome*/
+//if(removeChar === checkPalindrome){
+  
+  document.getElementById("abc").innerHTML="<div>"+ array[i] + " is a Palindrome <div>";
+//}else{
+  
+  //document.getElementById("abc").innerHTML="<div>" + array[i] + " is not a Palindrome </div>";
+}
+}
+}
+
+

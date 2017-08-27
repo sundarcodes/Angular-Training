@@ -7,4 +7,5 @@ org.createEmployees();
 org.printEmployeesInfo();
 var salaryUpgrader = new salary_upgrader_1.SalaryUpgrader();
 salaryUpgrader.incrementSalary(10, org.getEmployeeList());
+salaryUpgrader.addBonus(org.getEmployeeList());
 org.printEmployeesInfo();

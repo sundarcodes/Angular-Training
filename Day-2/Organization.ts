@@ -8,7 +8,8 @@ export class Organization {
     }
     createEmployees() {
         for (let i = 1; i <= 10; i++) {
-            let emp: Employee = new Employee(i, 'A' + i, i * 1000);    
+            let rating = Math.floor(Math.random()*(5-1+1)+1);
+            let emp: Employee = new Employee(i, 'A' + i, i * 1000,rating);    
             this.listOfEmployees.push(emp);       
         }
     }
